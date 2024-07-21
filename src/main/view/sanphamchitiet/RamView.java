@@ -8,7 +8,7 @@ import main.repository.RamRepository;
 
 public class RamView extends javax.swing.JFrame {
     private DefaultTableModel dtm;
-    private RamRepository ramRepository;
+    private RamRepository ramRepo;
     
     private void showDataTable(ArrayList<Ram> list){
         dtm.setRowCount(0);
@@ -19,7 +19,7 @@ public class RamView extends javax.swing.JFrame {
     }
     
     private void detail(int index){
-        Ram ram = ramRepository.getAll().get(index);
+        Ram ram = ramRepo.getAll().get(index);
         txtDungLuongRam.setText(ram.getDungLuongRam());
     }
     
@@ -29,8 +29,8 @@ public class RamView extends javax.swing.JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Quản lý Ram");
         dtm = (DefaultTableModel)tblQuanLyRam.getModel();
-        ramRepository = new RamRepository();
-        this.showDataTable(ramRepository.getAll());
+        ramRepo = new RamRepository();
+        this.showDataTable(ramRepo.getAll());
     }
 
     @SuppressWarnings("unchecked")

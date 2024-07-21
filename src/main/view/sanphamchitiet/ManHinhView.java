@@ -7,7 +7,7 @@ import main.repository.ManHinhRepository;
 
 public class ManHinhView extends javax.swing.JFrame {
     private DefaultTableModel dtm;
-    private ManHinhRepository manhinhRepository;
+    private ManHinhRepository manhinhRepo;
     
     private void showDataTable(ArrayList<ManHinh> list){
         dtm.setRowCount(0);
@@ -17,7 +17,7 @@ public class ManHinhView extends javax.swing.JFrame {
     }
     
     private void detail(int index){
-        ManHinh mh = manhinhRepository.getAll().get(index);
+        ManHinh mh = manhinhRepo.getAll().get(index);
         txtKichThuocMH.setText(mh.getKichThuoc());
     }
     
@@ -27,8 +27,8 @@ public class ManHinhView extends javax.swing.JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Quản lý màn hình");
         dtm = (DefaultTableModel)tblQuanLyManHinh.getModel();
-        manhinhRepository = new ManHinhRepository();
-        this.showDataTable(manhinhRepository.getAll());
+        manhinhRepo = new ManHinhRepository();
+        this.showDataTable(manhinhRepo.getAll());
     }
 
     @SuppressWarnings("unchecked")

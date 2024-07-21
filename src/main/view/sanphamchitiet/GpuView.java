@@ -7,7 +7,7 @@ import main.repository.GpuRepository;
 
 public class GpuView extends javax.swing.JFrame {
     private DefaultTableModel dtm;
-    private GpuRepository gpuRepository;
+    private GpuRepository gpuRepo;
     
     private void showDataTable(ArrayList<Gpu> list){
         dtm.setRowCount(0);
@@ -17,7 +17,7 @@ public class GpuView extends javax.swing.JFrame {
     }
     
     private void detail(int index){
-        Gpu gpu = gpuRepository.getAll().get(index);
+        Gpu gpu = gpuRepo.getAll().get(index);
         txtTenGPU.setText(gpu.getTenGPU());
     }
     
@@ -27,8 +27,8 @@ public class GpuView extends javax.swing.JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Quản lý GPU");
         dtm = (DefaultTableModel)tblQuanLyGPU.getModel();
-        gpuRepository = new GpuRepository();
-        this.showDataTable(gpuRepository.getAll());
+        gpuRepo = new GpuRepository();
+        this.showDataTable(gpuRepo.getAll());
     }
 
     

@@ -7,7 +7,7 @@ import main.repository.PinRepository;
 
 public class PinView extends javax.swing.JFrame {
     private DefaultTableModel dtm;
-    private PinRepository pinRepository;
+    private PinRepository pinRepo;
     
     private void showDataTable(ArrayList<Pin> list){
         dtm.setRowCount(0);
@@ -17,7 +17,7 @@ public class PinView extends javax.swing.JFrame {
     }
     
     private void detail(int index){
-        Pin pin = pinRepository.getAll().get(index);
+        Pin pin = pinRepo.getAll().get(index);
         txtDungLuongPin.setText(pin.getDungLuongPin());
     }
     
@@ -27,8 +27,8 @@ public class PinView extends javax.swing.JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Quản lý màn hình");
         dtm = (DefaultTableModel)tblQuanLyPin.getModel();
-        pinRepository = new PinRepository();
-        this.showDataTable(pinRepository.getAll());
+        pinRepo = new PinRepository();
+        this.showDataTable(pinRepo.getAll());
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

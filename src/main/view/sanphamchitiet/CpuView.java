@@ -8,7 +8,7 @@ import main.repository.CpuRepository;
 
 public class CpuView extends javax.swing.JFrame {
     private DefaultTableModel dtm;
-    private CpuRepository cpuRepository;
+    private CpuRepository cpuRepo;
           
     private void showDataTable(ArrayList<Cpu> list){
         dtm.setRowCount(0);
@@ -18,7 +18,7 @@ public class CpuView extends javax.swing.JFrame {
     }
     
     private void detail(int index){
-        Cpu cpu = cpuRepository.getAll().get(index);
+        Cpu cpu = cpuRepo.getAll().get(index);
         txtTenCPU.setText(cpu.getTenCPU());
    }
     
@@ -28,8 +28,8 @@ public class CpuView extends javax.swing.JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Quản lý CPU");
         dtm = (DefaultTableModel)tblQuanLyCPU.getModel();
-        cpuRepository = new CpuRepository();
-        this.showDataTable(cpuRepository.getAll());
+        cpuRepo = new CpuRepository();
+        this.showDataTable(cpuRepo.getAll());
     }
 
     
