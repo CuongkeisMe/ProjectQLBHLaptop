@@ -2,13 +2,13 @@ package main.view.chucnang;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-import main.entity.Cpu;
+import main.entity.CPU;
 import main.entity.Gpu;
 import main.entity.ManHinh;
 import main.entity.OCung;
 import main.entity.Pin;
 import main.entity.Ram;
-import main.repository.CpuRepository;
+import main.repository.CPURepository;
 import main.repository.GpuRepository;
 import main.repository.ManHinhRepository;
 import main.repository.OCungRepository;
@@ -29,7 +29,7 @@ public class SanPhamView extends javax.swing.JInternalFrame {
     private DefaultComboBoxModel pinDcbm;
     private DefaultComboBoxModel ocungDcbm;
     
-    private CpuRepository cpuRepository;
+    private CPURepository cpuRepository;
     private GpuRepository gpuRepository;
     private RamRepository ramRepository;
     private ManHinhRepository manhinhRepository;
@@ -38,7 +38,7 @@ public class SanPhamView extends javax.swing.JInternalFrame {
     
     private void showComboboxCPU(){
         cpuDcbm.removeAllElements();
-        for(Cpu cpu : cpuRepository.getAll()){
+        for(CPU cpu : cpuRepository.getAll()){
             cpuDcbm.addElement(cpu.getTenCPU());
         }
     }
@@ -107,7 +107,7 @@ public class SanPhamView extends javax.swing.JInternalFrame {
     }
     
     private void repositoryDinhDang(){
-        cpuRepository = new CpuRepository();
+        cpuRepository = new CPURepository();
         gpuRepository = new GpuRepository();
         ramRepository = new RamRepository();
         manhinhRepository = new ManHinhRepository();

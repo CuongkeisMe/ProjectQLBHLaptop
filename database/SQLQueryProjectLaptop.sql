@@ -1,8 +1,8 @@
-﻿create database QLBH_PRO1041
-go
-use QLBH_PRO1041
+﻿CREATE DATABASE QLBH_PRO1041;
+GO
 
-
+USE QLBH_PRO1041;
+GO
 create table Ram (
 	id_Ram int identity (1,1) primary key,
 	MaRam as ('RM' + RIGHT('00000' + CAST(id_Ram as varchar(6)), 6)) persisted,
@@ -45,139 +45,131 @@ create table Pin (
 	TrangThai bit default 1 
 );
 
-create table SanPham (
-	id_SanPham int identity (1,1) primary key,
-	id_Ram int not null,
-	id_CPU int not null,
-	id_GPU int not null,
-	id_ManHinh int not null,
-	id_OCung int not null,
-	id_Pin int not null,
-	MaSanPham as ('SP' + RIGHT('00000' + CAST(id_SanPham as varchar(6)), 6)) persisted,
-	TenSanPham varchar(50) not null,
-	HinhAnh varchar(Max) not null,
-	SoLuong int not null,
-	GiaNhap money not null,
-	GiaBan money not null,
-	TrangThai bit default 1
-	FOREIGN KEY (id_Ram) REFERENCES dbo.Ram(id_Ram),
-	FOREIGN KEY (id_CPU) REFERENCES dbo.CPU(id_CPU),
-	FOREIGN KEY (id_GPU) REFERENCES dbo.GPU(id_GPU),
-	FOREIGN KEY (id_ManHinh) REFERENCES dbo.ManHinh(id_ManHinh),
-	FOREIGN KEY (id_OCung) REFERENCES dbo.OCung(id_OCung),
-	FOREIGN KEY (id_Pin) REFERENCES dbo.Pin(id_Pin),
+CREATE TABLE SanPham (
+    id_SanPham INT IDENTITY(1,1) PRIMARY KEY,
+    id_Ram INT NOT NULL,
+    id_CPU INT NOT NULL,
+    id_GPU INT NOT NULL,
+    id_ManHinh INT NOT NULL,
+    id_OCung INT NOT NULL,
+    id_Pin INT NOT NULL,
+    MaSanPham AS ('SP' + RIGHT('00000' + CAST(id_SanPham AS VARCHAR(6)), 6)) PERSISTED,
+    TenSanPham NVARCHAR(50) NOT NULL,
+    HinhAnh VARCHAR(MAX) NOT NULL,
+    SoLuong INT NOT NULL,
+    GiaNhap MONEY NOT NULL,
+    GiaBan MONEY NOT NULL,
+    TrangThai BIT DEFAULT 1,
+    FOREIGN KEY (id_Ram) REFERENCES Ram(id_Ram),
+    FOREIGN KEY (id_CPU) REFERENCES CPU(id_CPU),
+    FOREIGN KEY (id_GPU) REFERENCES GPU(id_GPU),
+    FOREIGN KEY (id_ManHinh) REFERENCES ManHinh(id_ManHinh),
+    FOREIGN KEY (id_OCung) REFERENCES OCung(id_OCung),
+    FOREIGN KEY (id_Pin) REFERENCES Pin(id_Pin)
 );
 
-create table KhachHang (
-	id_KhachHang int identity (1,1) primary key,
-	MaKhachHang as ('KH' + RIGHT('00000' + CAST(id_KhachHang as varchar(6)), 6)) persisted,
-	HoTen nvarchar(50) not null,
-	NgaySinh Date not null,
-	GioiTinh bit,
-	SDT char(10) not null,
-	Email varchar(100) not null,
-	DiaChi varchar(Max) not null,
-	TrangThai bit default 1
+CREATE TABLE KhachHang (
+    id_KhachHang INT IDENTITY(1,1) PRIMARY KEY,
+    MaKhachHang AS ('KH' + RIGHT('00000' + CAST(id_KhachHang AS VARCHAR(6)), 6)) PERSISTED,
+    HoTen NVARCHAR(50) NOT NULL,
+    NgaySinh DATE NOT NULL,
+    GioiTinh BIT,
+    SDT CHAR(10) NOT NULL,
+    Email VARCHAR(100) NOT NULL,
+    DiaChi NVARCHAR(MAX) NOT NULL,
+    TrangThai BIT DEFAULT 1
 );
 
-create table NhanVien (
-	id_NhanVien int identity (1,1) primary key,
-	MaNhanVien as ('NV' + RIGHT('00000' + CAST(id_NhanVien as varchar(6)), 6)) persisted,
-	UserName varchar(50) not null,
-	Pass varchar(Max) not null,
-	HoTen nvarchar(50) not null,
-	NgaySinh Date not null,
-	GioiTinh bit,
-	SDT char(10) not null,
-	Email varchar(100) not null,
-	DiaChi varchar(Max) not null,
-	VaiTro bit,
-	TrangThai bit default 1
-);
-create table VaiTro(
-	id_VaiTro int identity (1,1) primary key,
-	id_NhanVien int,
-	LoaiVaiTro bit not null,
-	foreign key (id_NhanVien) references NhanVien(id_NhanVien)
-
-);
-create table Voucher (
-	id_Voucher int identity (1,1) primary key,
-	id_NhanVien int,
-	MaVoucher varchar(50) not null,
-	MoTa varchar(Max),
-	NgayPhatHanh Date not null,
-	NgayHetHan Date not null,
-	SoLuong int check (SoLuong > 0),
-	NgaySuDung Date not null,
-	TrangThai bit default 1
-	FOREIGN KEY (id_NhanVien) REFERENCES dbo.NhanVien(id_NhanVien),
+CREATE TABLE NhanVien (
+    id_NhanVien INT IDENTITY(1,1) PRIMARY KEY,
+    MaNhanVien AS ('NV' + RIGHT('00000' + CAST(id_NhanVien AS VARCHAR(6)), 6)) PERSISTED,
+    UserName VARCHAR(50) NOT NULL,
+    Pass VARCHAR(MAX) NOT NULL,
+    HoTen NVARCHAR(50) NOT NULL,
+    NgaySinh DATE NOT NULL,
+    GioiTinh BIT,
+    SDT CHAR(10) NOT NULL,
+    Email VARCHAR(100) NOT NULL,
+    DiaChi VARCHAR(MAX) NOT NULL,
+    VaiTro BIT,
+    TrangThai BIT DEFAULT 1
 );
 
-
-create table HoaDon (
-	id_HoaDon int identity (1,1) primary key,
-	id_KhachHang int,
-	id_NhanVien int,
-	id_Voucher int,
-	MaHoaDon as ('HD' + RIGHT('00000' + CAST(id_HoaDon as varchar(6)), 6)) persisted,
-	NgayThanhToan Date not null,
-	TongTien money not null,
-	TienTruVoucher money not null,
-	ThanhTien money not null,
-	PhuongThucThanhToan varchar(30) not null,
-	GhiChu varchar(50),
-	TrangThai bit default 1
-	FOREIGN KEY (id_KhachHang) REFERENCES dbo.KhachHang(id_KhachHang),
-	FOREIGN KEY (id_NhanVien) REFERENCES dbo.NhanVien(id_NhanVien),
-	FOREIGN KEY (id_Voucher) REFERENCES dbo.Voucher(id_Voucher)
+CREATE TABLE VaiTro (
+    id_VaiTro INT IDENTITY(1,1) PRIMARY KEY,
+    id_NhanVien INT,
+    LoaiVaiTro BIT NOT NULL,
+    FOREIGN KEY (id_NhanVien) REFERENCES NhanVien(id_NhanVien)
 );
 
+CREATE TABLE Voucher (
+    id_Voucher INT IDENTITY(1,1) PRIMARY KEY,
+    id_NhanVien INT,
+    MaVoucher VARCHAR(50) NOT NULL,
+    MoTa NVARCHAR(MAX),
+    NgayPhatHanh DATE NOT NULL,
+    NgayHetHan DATE NOT NULL,
+    SoLuong INT CHECK (SoLuong > 0),
+    MucGiaTri MONEY,
+    GiaTriToiDa MONEY,
+    NgaySuDung DATE NOT NULL,
+    TrangThai BIT DEFAULT 1,
+    FOREIGN KEY (id_NhanVien) REFERENCES NhanVien(id_NhanVien)
+);
 
-create table HoaDonChiTiet (
-	id_HDCT int identity (1,1) primary key,
-	id_HoaDon int,
-	id_SanPham int,
-	SoLuong int check (SoLuong > 0),
-	DonGia money not null,
-	TongTien money not null,
-	TrangThai bit default 1
-	FOREIGN KEY (id_SanPham) REFERENCES dbo.SanPham(id_SanPham),
-	FOREIGN KEY (id_HoaDon) REFERENCES dbo.HoaDon(id_HoaDon)
+CREATE TABLE HoaDon (
+    id_HoaDon INT IDENTITY(1,1) PRIMARY KEY,
+    id_KhachHang INT,
+    id_NhanVien INT,
+    id_Voucher INT,
+    MaHoaDon AS ('HD' + RIGHT('00000' + CAST(id_HoaDon AS VARCHAR(6)), 6)) PERSISTED,
+    NgayThanhToan DATE NOT NULL,
+    TongTien MONEY NOT NULL,
+    TienVoucher MONEY NOT NULL,
+    ThanhTien MONEY,
+    PhuongThucThanhToan NVARCHAR(30) NOT NULL,
+    GhiChu NVARCHAR(50),
+    TrangThai BIT DEFAULT 1,
+    FOREIGN KEY (id_KhachHang) REFERENCES KhachHang(id_KhachHang),
+    FOREIGN KEY (id_NhanVien) REFERENCES NhanVien(id_NhanVien),
+    FOREIGN KEY (id_Voucher) REFERENCES Voucher(id_Voucher)
 );
-create table Imei (
-	id_Imei int identity (1,1) primary key,
-	id_SanPham int not null,
-	Ma_Imei varchar(50) not null,
-	TrangThai bit default 1,
-	foreign key (id_SanPham) references dbo.SanPham(id_SanPham)
+
+CREATE TABLE HoaDonChiTiet (
+    id_HDCT INT IDENTITY(1,1) PRIMARY KEY,
+    id_HoaDon INT,
+    id_SanPham INT,
+    SoLuong INT CHECK (SoLuong > 0),
+    DonGia MONEY NOT NULL,
+    TongTien MONEY NOT NULL,
+    TrangThai BIT DEFAULT 1,
+    FOREIGN KEY (id_SanPham) REFERENCES SanPham(id_SanPham),
+    FOREIGN KEY (id_HoaDon) REFERENCES HoaDon(id_HoaDon)
 );
-create table ImeiDaBan (
-	id_ImeiDaBan int identity (1,1) primary key,
-	id_HDCT int,
-	Ma_Imei varchar(50) not null,
-	TrangThai bit default 1,
-	FOREIGN KEY (id_HDCT) REFERENCES dbo.HoaDonChiTiet(id_HDCT),
+
+CREATE TABLE Imei (
+    id_Imei INT IDENTITY(1,1) PRIMARY KEY,
+    id_SanPham INT NOT NULL,
+    Ma_Imei VARCHAR(50) NOT NULL,
+    TrangThai BIT DEFAULT 1,
+    FOREIGN KEY (id_SanPham) REFERENCES SanPham(id_SanPham)
 );
-go
+
+CREATE TABLE ImeiDaBan (
+    id_ImeiDaBan INT IDENTITY(1,1) PRIMARY KEY,
+    id_HDCT INT,
+    Ma_Imei VARCHAR(50) NOT NULL,
+    TrangThai BIT DEFAULT 1,
+    FOREIGN KEY (id_HDCT) REFERENCES HoaDonChiTiet(id_HDCT)
+);
+GO
 
 INSERT INTO Ram (DungLuongRam) VALUES ('8GB'), ('16GB'), ('32GB'), ('64GB');
-
 INSERT INTO CPU (TenCPU) VALUES ('Intel Core i5'), ('Intel Core i7'), ('AMD Ryzen 5'), ('AMD Ryzen 7');
-
-INSERT INTO OCung (LoaiOCung) VALUES 
-('SSD 256GB'), 
-('SSD 512GB'), 
-('HDD 1TB'), 
-('HDD 2TB');
-
+INSERT INTO OCung (LoaiOCung) VALUES ('SSD256GB'), ('SSD512GB'), ('HDD1TB'), ('HDD2TB');
 INSERT INTO GPU (TenGPU) VALUES ('NVIDIA GTX 1660'), ('NVIDIA RTX 3060'), ('AMD Radeon RX 5700'), ('AMD Radeon RX 6800');
-
-
 INSERT INTO ManHinh (KichThuoc) VALUES ('13.3 inch'), ('15.6 inch'), ('17.3 inch'), ('14 inch');
-
-
-INSERT INTO Pin (DungLuongPin) VALUES ('75 Wh'), ('60 Wh'), ('65 Wh'), ('70Wh');
+INSERT INTO Pin (DungLuongPin) VALUES ('75 Wh'), ('60 Wh'), ('65 Wh'), ('70 Wh');
 
 INSERT INTO SanPham (id_Ram, id_CPU, id_GPU, id_ManHinh, id_OCung, id_Pin, TenSanPham, HinhAnh, SoLuong, GiaNhap, GiaBan)
 VALUES 
@@ -192,7 +184,6 @@ VALUES
 (N'Trần Thị Sương', '1990-08-15', 0, '0987654321', 'b@yahoo.com', N'456 Đường B'),
 (N'Lê Văn Sướng', '1992-09-20', 1, '0901234567', 'c@hotmail.com', N'789 Đường C'),
 (N'Phạm Thị Thu Hương', '1988-12-25', 0, '0934567890', 'd@outlook.com', N'101 Đường D');
-
 INSERT INTO NhanVien (UserName, Pass, HoTen, NgaySinh, GioiTinh, SDT, Email, DiaChi, VaiTro) 
 VALUES 
 ('user1', 'password1', N'Lê Quang Hải', '1980-01-01', 1, '0911222333', 'h@example.com', N'100 Đường H', 0),
@@ -207,19 +198,19 @@ VALUES
 (3, 0), -- NhanVien with id 3 is a nhân viên
 (4, 1); -- NhanVien with id 4 is an admin
 
-INSERT INTO Voucher (id_NhanVien, MaVoucher, MoTa, NgayPhatHanh, NgayHetHan, SoLuong, NgaySuDung)
+INSERT INTO Voucher (id_NhanVien, MaVoucher, MoTa, NgayPhatHanh, NgayHetHan, SoLuong, MucGiaTri, GiaTriToiDa, NgaySuDung)
 VALUES 
-(1, 'VOUCHER100', N'Giảm giá 100K', '2024-01-01', '2024-12-31', 50, '2024-01-02'),
-(2, 'VOUCHER200', N'Giảm giá 200K', '2024-01-01', '2024-12-31', 30, '2024-01-02'),
-(3, 'VOUCHER300', N'Giảm giá 300K', '2024-01-01', '2024-12-31', 20, '2024-01-02'),
-(4, 'VOUCHER400', N'Giảm giá 400K', '2024-01-01', '2024-12-31', 10, '2024-01-02');
+(1, 'VOUCHER100', N'Giảm giá 100K', '2024-01-01', '2024-12-31', 50, 100000, NULL, '2024-01-02'),
+(2, 'VOUCHER200', N'Giảm giá 200K', '2024-01-01', '2024-12-31', 30, 200000, NULL, '2024-01-02'),
+(3, 'VOUCHER300', N'Giảm giá 300K', '2024-01-01', '2024-12-31', 20, 300000, NULL, '2024-01-02'),
+(4, 'VOUCHER400', N'Giảm giá 400K', '2024-01-01', '2024-12-31', 10, 400000, NULL, '2024-01-02');
 
-INSERT INTO HoaDon (id_KhachHang, id_NhanVien, id_Voucher, NgayThanhToan, TongTien,TienTruVoucher, ThanhTien, PhuongThucThanhToan, GhiChu)
+INSERT INTO HoaDon (id_KhachHang, id_NhanVien, id_Voucher, NgayThanhToan, TongTien, TienVoucher, ThanhTien, PhuongThucThanhToan, GhiChu)
 VALUES 
-(1, 1, 1, '2024-02-01', 15000000, 1, 1, N'Thẻ tín dụng', N'Thanh toán đầy đủ'),
-(2, 2, 2, '2024-02-02', 18000000,1,1, N'Tiền mặt', N'Thanh toán đầy đủ'),
-(3, 3, 3, '2024-02-03', 21000000,1,1, N'Thẻ tín dụng', N'Thanh toán đầy đủ'),
-(4, 4, 4, '2024-02-04', 24000000,1,1, N'Tiền mặt', N'Thanh toán đầy đủ');
+(1, 1, 1, '2024-02-01', 15000000, 100000, 14900000, N'Thẻ tín dụng', N'Thanh toán đầy đủ'),
+(2, 2, 2, '2024-02-02', 18000000, 200000, 17800000, N'Tiền mặt', N'Thanh toán đầy đủ'),
+(3, 3, 3, '2024-02-03', 21000000, 300000, 20700000, N'Thẻ tín dụng', N'Thanh toán đầy đủ'),
+(4, 4, 4, '2024-02-04', 24000000, 400000, 23600000, N'Tiền mặt', N'Thanh toán đầy đủ');
 
 INSERT INTO HoaDonChiTiet (id_HoaDon, id_SanPham, SoLuong, DonGia, TongTien)
 VALUES 
@@ -229,6 +220,13 @@ VALUES
 (4, 4, 1, 24000000, 24000000);
 
 INSERT INTO Imei (id_SanPham, Ma_Imei) 
+VALUES 
+(1, '1234567890'), 
+(2, '2345678901'), 
+(3, '3456789012'), 
+(4, '4567890123');
+
+INSERT INTO ImeiDaBan (id_HDCT, Ma_Imei) 
 VALUES 
 (1, '1234567890'), 
 (2, '2345678901'), 
@@ -248,3 +246,24 @@ select * from HoaDonChiTiet
 select * from VaiTro
 select * from Voucher
 select * from SanPham
+go
+go
+	SELECT 
+    HoaDon.MaHoaDon as 'MaHoaDon',
+    KhachHang.HoTen as 'kh',
+    Voucher.MaVoucher as 'MaVoucher',
+    NhanVien.HoTen as 'nv',
+    FORMAT(HoaDon.NgayThanhToan, 'dd-MM-yyyy') as 'NgayThanhToan',
+    HoaDon.TongTien as 'TongTien',
+    HoaDon.TienVoucher as 'TienVoucher',
+    HoaDon.ThanhTien as 'ThanhTien',
+    HoaDon.PhuongThucThanhToan as 'PhuongThuc',
+    HoaDon.GhiChu as 'GhiChu'
+FROM HoaDon
+JOIN KhachHang ON KhachHang.id_KhachHang = HoaDon.id_KhachHang
+JOIN Voucher ON Voucher.id_Voucher = HoaDon.id_Voucher
+JOIN NhanVien ON NhanVien.id_NhanVien = HoaDon.id_NhanVien
+WHERE HoaDon.TrangThai = 1;
+GO
+Update HoaDon set TrangThai = 0 where MaHoaDon=?
+	
