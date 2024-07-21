@@ -51,6 +51,7 @@ public class HoaDonRepository {
             hd.setPhuongThucThanhToan(rs.getString("PhuongThuc"));
             hd.setGhiChu(rs.getString("GhiChu"));
             list.add(hd);
+            
         }
     } catch (Exception e) {
         e.printStackTrace(); // Added for debugging purposes
