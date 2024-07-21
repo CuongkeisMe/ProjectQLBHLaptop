@@ -3,14 +3,14 @@ package main.view.sanphamchitiet;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
-import main.entity.Cpu;
-import main.repository.CpuRepository;
+import main.entity.CPU;
+import main.repository.CPURepository;
 
 public class CpuView extends javax.swing.JFrame {
     private DefaultTableModel dtm;
-    private CpuRepository cpuRepo;
+    private CPURepository cpuRepository;
           
-    private void showDataTable(ArrayList<Cpu> list){
+    private void showDataTable(ArrayList<CPU> list){
         dtm.setRowCount(0);
         list.forEach(x -> dtm.addRow(new Object[]{
             x.getIdCPU(), x.getMaCPU(), x.getTenCPU()
@@ -18,7 +18,7 @@ public class CpuView extends javax.swing.JFrame {
     }
     
     private void detail(int index){
-        Cpu cpu = cpuRepo.getAll().get(index);
+        CPU cpu = cpuRepository.getAll().get(index);
         txtTenCPU.setText(cpu.getTenCPU());
    }
     
@@ -28,8 +28,8 @@ public class CpuView extends javax.swing.JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Quản lý CPU");
         dtm = (DefaultTableModel)tblQuanLyCPU.getModel();
-        cpuRepo = new CpuRepository();
-        this.showDataTable(cpuRepo.getAll());
+        cpuRepository = new CPURepository();
+        this.showDataTable(cpuRepository.getAll());
     }
 
     

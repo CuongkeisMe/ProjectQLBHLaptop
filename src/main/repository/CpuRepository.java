@@ -5,11 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import main.config.DBConnect;
-import main.entity.Cpu;
+import main.entity.CPU;
 
-public class CpuRepository {
-    public ArrayList<Cpu> getAll(){
-        ArrayList<Cpu> listCPU = new ArrayList<>();
+
+public class CPURepository {
+    public ArrayList<CPU> getAll(){
+        ArrayList<CPU> listCPU = new ArrayList<>();
         String sql = """
                      SELECT [id_CPU]
                            ,[MaCPU]
@@ -20,7 +21,7 @@ public class CpuRepository {
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                Cpu cpu = Cpu.builder()
+                CPU cpu = CPU.builder()
                         .IdCPU(rs.getInt(1))
                         .MaCPU(rs.getString(2))
                         .TenCPU(rs.getString(3))

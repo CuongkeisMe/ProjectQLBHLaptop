@@ -14,7 +14,7 @@ import lombok.ToString;
 @Builder
 @ToString
 
-public class Cpu {
+public class CPU {
     private Integer IdCPU;
     private String MaCPU;
     private String TenCPU;

@@ -7,7 +7,7 @@ import main.repository.OCungRepository;
 
 public class OCungView extends javax.swing.JFrame {
     private DefaultTableModel dtm;
-    private OCungRepository ocungRepo;
+    private OCungRepository ocungRepository;
     
     private void showDataTable(ArrayList<OCung> list){
         dtm.setRowCount(0);
@@ -17,7 +17,7 @@ public class OCungView extends javax.swing.JFrame {
     }
     
     private void detail(int index){
-        OCung oc = ocungRepo.getAll().get(index);
+        OCung oc = ocungRepository.getAll().get(index);
         txtLoaiOCung.setText(oc.getMaOCung());
     }
     
@@ -27,8 +27,8 @@ public class OCungView extends javax.swing.JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Quản lý Ổ cứng");
         dtm = (DefaultTableModel)tblQuanLyOCung.getModel();
-        ocungRepo = new OCungRepository();
-        this.showDataTable(ocungRepo.getAll());
+        ocungRepository = new OCungRepository();
+        this.showDataTable(ocungRepository.getAll());
     }
 
     @SuppressWarnings("unchecked")
